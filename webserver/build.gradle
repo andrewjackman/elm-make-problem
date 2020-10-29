@@ -1,0 +1,50 @@
+apply plugin: 'kotlin-kapt'
+apply plugin: 'org.mohme.gradle.elm-plugin'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencies {
+    implementation platform("org.http4k:http4k-bom:${http4k_version}")
+    implementation "org.http4k:http4k-core"
+    implementation "org.http4k:http4k-format-jackson"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jackson_kotlin_module_version}"
+    implementation "org.http4k:http4k-server-jetty:${http4k_version}"
+    implementation "org.http4k:http4k-client-websocket:${http4k_version}"
+    implementation "org.http4k:http4k-cloudnative:${http4k_version}"
+
+    implementation "com.github.ajalt.clikt:clikt:${clikt_version}"
+
+    testImplementation "org.http4k:http4k-testing-hamkrest"
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.mockito:mockito-core:${mockito_version}"
+
+    dependencies {
+        implementation "io.arrow-kt:arrow-core:$arrow_version"
+        implementation "io.arrow-kt:arrow-syntax:$arrow_version"
+        kapt    "io.arrow-kt:arrow-meta:$arrow_version"
+    }
+}
+
+elm {
+    sourceDir = file('src/main/elm/ui')
+    executionDir = 'src/main/elm'
+    executable = org.mohme.gradle.Executable.Provided.INSTANCE
+    targetModuleName = 'elm.js'
+    debug = false
+    optimize = true
+}
+
+mainClassName = "com.andrewjackman.elmmakeissue.webserver.MainKt"
+shadowJar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    mergeServiceFiles()
+}
+
+tasks.build.dependsOn tasks.shadowJar
+
+test {
+    useJUnitPlatform()
+}

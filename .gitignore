@@ -1,0 +1,14 @@
+**/.gradle
+**/.idea
+**/build
+*.iml
+*.ipr
+*.iws
+
+**/logs/
+/webserver/src/main/elm/package.json
+/webserver/src/main/elm/package-lock.json
+/webserver/src/main/elm/.cache/
+/webserver/src/main/elm/dist/
+/webserver/src/main/elm/elm-stuff/0.19.1/
+/webserver/src/main/elm/node_modules/
