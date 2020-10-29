@@ -28,7 +28,7 @@ dependencies {
 
 elm {
     sourceDir = file('src/main/elm/ui')
-    executionDir = 'src/main/elm'
+    executionDir = "${rootProject.projectDir}/webserver/src/main/elm"
     executable = org.mohme.gradle.Executable.Provided.INSTANCE
     targetModuleName = 'elm.js'
     debug = false

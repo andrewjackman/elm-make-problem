@@ -2,13 +2,30 @@
 
 Trying to build an `http4k` server that serves up an `Elm` UI. Using the gradle Elm plugin `https://github.com/tmohme/gradle-elm-plugin`.
 
+## Solved
+
+Solution (`executionDir` specified from project root 🤮):
+
+```
+elm {
+    sourceDir = file('src/main/elm/ui')
+    executionDir = "${rootProject.projectDir}/webserver/src/main/elm"
+    executable = org.mohme.gradle.Executable.Provided.INSTANCE
+    targetModuleName = 'elm.js'
+    debug = false
+    optimize = true
+}
+```
+
+## Original Problem
+
 The following fails:
 
 ```
 ./gradlew elmMake
  ```
 
-But if do the following, `elmMake` works:
+But, if do the following, `elmMake` works:
 
 ```
 cd webserver
