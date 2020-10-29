@@ -35,6 +35,13 @@ elm {
     optimize = true
 }
 
+task copyElmOutput{
+    copy {
+        from ('build/elm')
+        into 'src/main/resources/public'
+    }
+}
+
 mainClassName = "com.andrewjackman.elmmakeissue.webserver.MainKt"
 shadowJar {
     manifest {
@@ -43,6 +50,8 @@ shadowJar {
     mergeServiceFiles()
 }
 
+tasks.elmMake.dependsOn tasks.compileKotlin
+tasks.shadowJar.dependsOn tasks.copyElmOutput
 tasks.build.dependsOn tasks.shadowJar
 
 test {
