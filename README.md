@@ -1,6 +1,6 @@
-# Gradle elm-plugin-issue
+# Gradle elm-plugin issue
 
-Trying to build an `http4k` server that serves up an `Elm` UI.
+Trying to build an `http4k` server that serves up an `Elm` UI. Using the gradle Elm plugin `https://github.com/tmohme/gradle-elm-plugin`.
 
 The following fails:
 
